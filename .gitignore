@@ -3,6 +3,8 @@
 /.pnp
 .pnp.js
 
+package-lock.json
+
 # production
 /dist
 /build

@@ -1,47 +1,49 @@
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const InlineChunkHtmlPlugin = require('inline-chunk-html-plugin');
 
-export default (env, argv) => {
-  const isDevelopment = argv.mode !== 'production';
-
-  return {
-    mode: argv.mode || 'development',
-    devtool: isDevelopment ? 'inline-source-map' : false,
-    entry: {
-      ui: './src/app/index.tsx',
-      controller: './src/figma/controller.ts',
-    },
-    module: {
-      rules: [
-        {
-          test: /\.tsx?$/,
-          use: 'ts-loader',
-          exclude: /node_modules/,
-        },
-        {
-          test: /\.css$/,
-          use: ['style-loader', 'css-loader'],
-        },
-        {
-          test: /\.(png|jpg|gif|webp|svg)$/,
-          loader: 'url-loader',
-        },
-      ],
-    },
-    resolve: {
-      extensions: ['.tsx', '.ts', '.js'],
-    },
-    output: {
-      filename: '[name].js',
-      path: path.resolve(__dirname, 'dist'),
-    },
-    plugins: [
-      new HtmlWebpackPlugin({
-        template: './public/index.html',
-        filename: 'ui.html',
-        chunks: ['ui'],
-        cache: false,
-      }),
+module.exports = (env, argv) => ({
+  mode: argv.mode === 'production' ? 'production' : 'development',
+  devtool: argv.mode === 'production' ? false : 'inline-source-map',
+  entry: {
+    code: './src/figma/controller.ts',
+    ui: './src/app/index.tsx',
+  },
+  module: {
+    rules: [
+      {
+        test: /\.(tsx?)$/,
+        use: [
+          'ts-loader'
+        ],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.(scss|css)$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+        ],
+      },
     ],
-  };
-};
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'index.html'),
+      filename: 'ui.html',
+      chunks: ['ui'],
+      cache: false,
+    }),
+    new InlineChunkHtmlPlugin(HtmlWebpackPlugin, [/.*/]),
+  ],
+  resolve: {
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
+  },
+  output: {
+    filename: '[name].js?[contenthash]',
+    path: path.resolve(__dirname, 'dist'),
+    clean: true,
+  },
+});

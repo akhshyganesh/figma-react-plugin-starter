@@ -2,8 +2,10 @@
   "name": "figma-react-plugin-starter",
   "id": "100000000",
   "api": "1.0.0",
-  "editorType": ["figma"],
-  "main": "dist/controller.js",
+  "editorType": [
+    "figma"
+  ],
+  "main": "dist/code.js",
   "ui": "dist/ui.html",
   "capabilities": [],
   "enablePrivatePluginApi": true,
@@ -11,7 +13,11 @@
   "documentAccess": "dynamic-page",
   "permissions": [],
   "networkAccess": {
-    "devAllowedDomains": ["http://localhost:4000"],
-    "allowedDomains": ["none"]
+    "devAllowedDomains": [
+      "http://localhost:4000"
+    ],
+    "allowedDomains": [
+      "none"
+    ]
   }
 }
