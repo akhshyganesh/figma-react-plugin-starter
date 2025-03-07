@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Figma Plugin</title>
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+      background-color: var(--figma-color-bg, white);
+      color: var(--figma-color-text, black);
+    }
+
+    #root {
+      height: 100%;
+    }
+
+    .app {
+      padding: 16px;
+    }
+
+    button {
+      background-color: var(--figma-color-bg-brand, #18a0fb);
+      color: var(--figma-color-text-onbrand, white);
+      border: none;
+      border-radius: 6px;
+      padding: 8px 16px;
+      cursor: pointer;
+      font-weight: 500;
+    }
+
+    button:hover {
+      background-color: var(--figma-color-bg-brand-hover, #0d8ee0);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="root"></div>
+</body>
+
+</html>
